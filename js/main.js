@@ -6,34 +6,24 @@ import {
   HIGH_SCORES_STATE as renderHS
 } from './states.js';
 
-let currentQuestion = 0;
-
-let remainingTime = 51;
-const container = document.querySelector('.container');
-const hsBtn = document
-  .querySelector('.highscore')
-  .addEventListener('click', renderHighscore);
-const tl = document.querySelector('#tl');
 let time = null;
+let currentQuestion = 0;
+let remainingTime = 51;
 
-function render(state = 1) {
-  if (state === 1) {
-    container.innerHTML = WELCOME_SCREEN;
-    document.querySelector('#startQuiz').addEventListener('click', () => {
-      startQuiz();
-      time = setTimeout(timeInterval, 100);
-    });
-    return;
-  }
-  if (state === 2) {
-    // askQuestions;
-    return;
-  }
+const tl = document.querySelector('#tl');
+const container = document.querySelector('.container');
+document.querySelector('.highscore').addEventListener('click', renderHighscore);
+
+function render() {
+  container.innerHTML = WELCOME_SCREEN;
+  document.querySelector('#startQuiz').addEventListener('click', () => {
+    startQuiz();
+    time = setTimeout(timeInterval, 100);
+  });
 }
 
 function startQuiz() {
   container.innerHTML = renderQuiz(questions[currentQuestion]);
-
   setupClickListener(questions[currentQuestion]);
 }
 
@@ -121,6 +111,7 @@ function setupActionClickListener(isWinner = false, finalscore) {
 
       if (name.trim().length === 0) {
         alert('Enter name!!');
+        return;
       }
       const winners = JSON.parse(localStorage.getItem('hs')) ?? [];
       const newWinner = { name, score: finalscore };
