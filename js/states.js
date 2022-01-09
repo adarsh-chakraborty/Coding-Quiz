@@ -48,8 +48,10 @@ export const HIGH_SCORES_STATE = () => {
   const hs = JSON.parse(localStorage.getItem('hs')) ?? [];
   let hshtml = '';
 
-  hs.forEach((user) => {
-    hshtml += `<li class="hsitem"><span>${user.name}</span><span>${user.score}</span></li>`;
+  hs.forEach((user, i) => {
+    hshtml += `<li class="hsitem"><span>${i + 1}. ${user.name}</span><span>${
+      user.score
+    }</span></li>`;
   });
 
   return `<div class="Card flex justified-center state-0">

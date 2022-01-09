@@ -116,6 +116,8 @@ function setupActionClickListener(isWinner = false, finalscore) {
       const winners = JSON.parse(localStorage.getItem('hs')) ?? [];
       const newWinner = { name, score: finalscore };
       winners.push(newWinner);
+
+      winners.sort((a, b) => b.score - a.score);
       localStorage.setItem('hs', JSON.stringify(winners));
       startOverQuiz();
     });
